@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 #include <math.h>
+
+#define _USE_MATH_DEFINES
+#include <cmath> 
 #include "Kalman.h"
 
 #include <iostream>
@@ -18,8 +21,8 @@ int _tmain(int argc, _TCHAR* argv[])
     mat Z = mat(1000, 2).zeros() + .1*s;
     for (int i = 0; i < 1000; i++)
     {
-        Z(i, 1) = sin(i*3.14 / 2000.0);
-        Z(i, 0) = i / 1000.0;
+        Z(i, 1) += sin(i*M_PI / 2000.0);
+        Z(i, 0) += i / 1000.0;
     }
     std::cout << Z << std::endl;
     mat Y = K.estimate(Z);

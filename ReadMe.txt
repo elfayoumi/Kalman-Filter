@@ -2,11 +2,8 @@
     CONSOLE APPLICATION : kalmanfilter Project Overview
 ========================================================================
 
-AppWizard has created this kalmanfilter application for you.
-
-This file contains a summary of what you will find in each of the files that
-make up your kalmanfilter application.
-
+A simple implementation of Kalman Filter using Armadillo C++. Armadillo, is a useful library, that brings matlab to c++
+The Kalman class is can be any dimension. 
 
 kalmanfilter.vcxproj
     This is the main project file for VC++ projects generated using an Application Wizard.
@@ -34,7 +31,19 @@ StdAfx.h, StdAfx.cpp
 /////////////////////////////////////////////////////////////////////////////
 Other notes:
 
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
+example of projectile:
 
+	Kalman K(2);
+    mat s(1000, 2);
+    s.randn(); 
+
+    mat Z = mat(1000, 2).zeros() + .1*s;
+    for (int i = 0; i < 1000; i++)
+    {
+        Z(i, 1) += sin(i*M_PI / 2000.0);
+        Z(i, 0) += i / 1000.0;
+    }
+    std::cout << Z << std::endl;
+    mat Y = K.estimate(Z);
+    std::cout << Y << std::endl;
 /////////////////////////////////////////////////////////////////////////////
